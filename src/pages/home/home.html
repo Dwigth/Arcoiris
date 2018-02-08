@@ -1,22 +1,56 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title text-center>Home</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<ion-content (pan)="tapEvent($event)" padding>
+
 
   <div *ngFor="let item of compradores">
-    {{item.nombre}}
+    <ion-card>
+
+  <ion-card-header>
+    Comprador #: {{item.id}}
+  </ion-card-header>
+  <ion-card-content>
+    <!-- Add card content here! -->
+
+    <ion-item>
+    <ion-avatar item-start>
+      <img src="../assets/imgs/avatar-cher.png">
+    </ion-avatar>
+      {{item.nombre + " " + item.apellido_paterno + " " + item.apellido_materno}}
+
+  </ion-item>
+  <ion-list>
+<ion-item >
+  <ion-icon name="calendar" item-start></ion-icon>
+    <ion-badge color="primary">
+      {{item.fecha_registro}}
+    </ion-badge>
+</ion-item>
+<ion-item >
+  <ion-icon name="analytics" item-start></ion-icon>
+    <ion-badge *ngIf="item.estado == 1" color="secondary">
+      Activo
+    </ion-badge>
+    <ion-badge *ngIf="item.estado == 0" color="danger">
+      Inactivo
+    </ion-badge>
+</ion-item>
+<ion-item >
+  <ion-icon name="md-albums" item-start></ion-icon>
+  Visitas:
+    <ion-badge color="primary">
+      {{item.visitas}}
+    </ion-badge>
+</ion-item>
+</ion-list>
+  </ion-card-content>
+
+</ion-card>
+
   </div>
 
 </ion-content>
