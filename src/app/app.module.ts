@@ -13,6 +13,7 @@ import { Http } from '@angular/http';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { BuyerServiceProvider } from '../providers/buyer-service/buyer-service';
+import { QRScanner } from '@ionic-native/qr-scanner';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { BuyerServiceProvider } from '../providers/buyer-service/buyer-service';
     BrowserModule,
     HttpClientModule,
     HttpModule,
+
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -38,6 +40,7 @@ import { BuyerServiceProvider } from '../providers/buyer-service/buyer-service';
   ],
   providers: [
     StatusBar,
+    QRScanner,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     BuyerServiceProvider

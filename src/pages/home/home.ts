@@ -37,8 +37,10 @@ export class HomePage {
 
 tapEvent(ev:any){
   if (ev.isFinal) {
+
+      console.log(ev)
       this.presentLoading();
-        this.listarproductos();
+      this.listarproductos();
   }
 }
 presentLoading() {
