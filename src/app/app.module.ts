@@ -7,12 +7,9 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
-import { HttpClientModule } from '@angular/common/http';
-import { HttpModule } from '@angular/http';
-import { Http } from '@angular/http';
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { BuyerServiceProvider } from '../providers/buyer-service/buyer-service';
 
 @NgModule({
   declarations: [
@@ -24,8 +21,6 @@ import { BuyerServiceProvider } from '../providers/buyer-service/buyer-service';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
-    HttpModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -39,8 +34,7 @@ import { BuyerServiceProvider } from '../providers/buyer-service/buyer-service';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    BuyerServiceProvider
+    {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
 export class AppModule {}
