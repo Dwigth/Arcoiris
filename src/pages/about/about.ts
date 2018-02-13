@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 import { AlertController } from 'ionic-angular';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'page-about',
@@ -23,16 +24,14 @@ export class AboutPage {
     this.alert(status.authorized)
      if (status.authorized) {
        // camera permission was granted
-       this.qrScanner.useCamera(0);
-
        // start scanning
-       let scanSub = this.qrScanner.scan().subscribe((text: string) => {
+       /*let scanSub = this.qrScanner.scan().subscribe((text: string) => {
          console.log('Scanned something', text);
-         this.alert('Scanned something')
+
 
          //this.qrScanner.hide(); // hide camera preview
          //scanSub.unsubscribe(); // stop scanning
-       });
+       });*/
 
        // show camera preview
        this.qrScanner.show();
@@ -71,5 +70,7 @@ export class AboutPage {
     });
     confirm.present();
   }
+
+
 
 }

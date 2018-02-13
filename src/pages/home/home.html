@@ -4,8 +4,10 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content (pan)="tapEvent($event)" padding>
-
+<ion-content padding>
+  <div (pan)="tapEvent($event)"  class="reload">
+    <p text-center>Desliza para recargar</p>
+  </div>
 
   <div *ngFor="let item of compradores">
     <ion-card>
@@ -18,7 +20,7 @@
 
     <ion-item>
     <ion-avatar item-start>
-      <img src="../assets/imgs/avatar-cher.png">
+      <img src="../../assets/imgs/avatar-cher.png">
     </ion-avatar>
       {{item.nombre + " " + item.apellido_paterno + " " + item.apellido_materno}}
 
