@@ -17,13 +17,13 @@
 
 <ion-card *ngIf="productFound">
   <ion-card-header>
-    <h2>Price: $ {{selectedProduct.price}}</h2>
+    <h2>Price: $ {{selectedProduct}}</h2>
   </ion-card-header>
   <ion-card-content>
     <ul>
-      <li>{{selectedProduct.plu}}</li>
-      <li>{{selectedProduct.name}}</li>
-      <li>{{selectedProduct.desc}}</li>
+      <li>Name: {{jsonData.name}}</li>
+      <li>Age: {{jsonData.age}}</li>
+      <li>City: {{jsonData.city}}</li>
     </ul>
   </ion-card-content>
 </ion-card>
