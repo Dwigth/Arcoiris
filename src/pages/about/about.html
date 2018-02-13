@@ -9,14 +9,23 @@
 <ion-content padding>
 
 <ion-item>
-  <button (click)="setCamera()" type="button" ion-button block icon-start>
+  <button (click)="scan()" type="button" ion-button block icon-start>
       <ion-icon name="camera"></ion-icon>
     Escanear código
   </button>
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 </ion-item>
+
+<ion-card *ngIf="productFound">
+  <ion-card-header>
+    <h2>Price: $ {{selectedProduct.price}}</h2>
+  </ion-card-header>
+  <ion-card-content>
+    <ul>
+      <li>{{selectedProduct.plu}}</li>
+      <li>{{selectedProduct.name}}</li>
+      <li>{{selectedProduct.desc}}</li>
+    </ul>
+  </ion-card-content>
+</ion-card>
 
 </ion-content>

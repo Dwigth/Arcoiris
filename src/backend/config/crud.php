@@ -1,7 +1,49 @@
 <?php
 	Header('Access-Control-Allow-Origin: *');
 	include 'config.php';
-  $conn = new CONFIG();
+  $con = new CONFIG();
+
+class FUNCTIONS
+{
+	public static function GET_SQL($sql){
+	  $response;
+	  $conn = CONFIG::GET_CONNECTION();
+	  $query = mysqli_query($conn,$sql);
+	  $responseArray = array();
+
+	  if ($query) {
+	    $responseArray = array();
+				while ($fila = mysqli_fetch_assoc($query)) {
+					$responseArray[] = array_map('utf8_encode', $fila);
+				}
+				$response = json_encode($responseArray, JSON_NUMERIC_CHECK);
+	  }else{
+				$response = null;
+				echo mysqli_error($conn);
+			}
+
+			mysqli_close($conn);
+			return $response;
+	}
+
+	public static function PUT_SQL($sql){
+	      $response;
+			  $conn = CONFIG::GET_CONNECTION();
+			  $query = mysqli_query($conn,$sql);
+
+			if ($query) {
+				$array = true;
+				$response = json_encode($array, JSON_NUMERIC_CHECK);
+			}else{
+				$array = false;
+				$response = json_encode($array, JSON_NUMERIC_CHECK);
+				echo mysqli_error($conn);
+			}
+			mysqli_close($conn);
+			return $response;
+	}
+}
+
 
 	$opcion = $_GET["opcion"];
 	switch ($opcion) {

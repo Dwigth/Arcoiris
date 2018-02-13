@@ -1,25 +1,30 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { Toast } from '@ionic-native/toast';
 import { AlertController } from 'ionic-angular';
-<<<<<<< HEAD
-=======
 import * as $ from 'jquery';
->>>>>>> master
+
 
 @Component({
   selector: 'page-about',
   templateUrl: 'about.html'
 })
 export class AboutPage {
+  products: any[] = [];
+  selectedProduct: any;
+  productFound:boolean = false;
 
   constructor(
     public navCtrl: NavController,
+    private barcodeScanner: BarcodeScanner,
+    private toast: Toast,
     private qrScanner: QRScanner,
     public alertCtrl: AlertController) {
 
   }
-
+/*
   setCamera(){
 
     this.qrScanner.prepare()
@@ -27,7 +32,6 @@ export class AboutPage {
     this.alert(status.authorized)
      if (status.authorized) {
        // camera permission was granted
-<<<<<<< HEAD
        this.qrScanner.useCamera(0);
 
        // start scanning
@@ -38,7 +42,6 @@ export class AboutPage {
          //this.qrScanner.hide(); // hide camera preview
          //scanSub.unsubscribe(); // stop scanning
        });
-=======
        // start scanning
        /*let scanSub = this.qrScanner.scan().subscribe((text: string) => {
          console.log('Scanned something', text);
@@ -46,8 +49,7 @@ export class AboutPage {
 
          //this.qrScanner.hide(); // hide camera preview
          //scanSub.unsubscribe(); // stop scanning
-       });*/
->>>>>>> master
+       });
 
        // show camera preview
        this.qrScanner.show();
@@ -63,8 +65,32 @@ export class AboutPage {
      }
   })
   .catch((e: any) => console.log('Error is', e));
-  }
+  }*/
 
+scan(){
+this.selectedProduct = {};
+  this.barcodeScanner.scan().then((barcodeData) => {
+    this.selectedProduct = this.products.find(product => product.plu === barcodeData.text);
+    if(this.selectedProduct !== undefined) {
+      this.productFound = true;
+    } else {
+      this.productFound = false;
+      this.toast.show(`Product not found`, '5000', 'center').subscribe(
+        toast => {
+          console.log(toast);
+        }
+      );
+    }
+  }, (err) => {
+    this.toast.show(err, '5000', 'center').subscribe(
+      toast => {
+        console.log(toast);
+      }
+    );
+  });
+}
+
+      
   alert(message){
     let confirm = this.alertCtrl.create({
       title: 'Alert',
@@ -87,9 +113,4 @@ export class AboutPage {
     confirm.present();
   }
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> master
 }

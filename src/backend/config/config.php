@@ -2,57 +2,35 @@
 
 class CONFIG
 {
-  private static $server = '198.91.81.6';
-  private static $username = 'arcoiri2';
-  private static $pass = 'arcoiris123';
-  private static $db_name = 'arcoiri2_arcoiris';
+  private static $servername = '198.91.81.6';
+  private static $user = 'arcoiri2';
+  private static $password = 'arcoiris123';
+  private static $database = 'arcoiri2_arcoiris';
+  private static $conexion = NULL;
 
-  public static function GET_CONNECTION(){
-    $con = mysqli_connect(CONFIG::$server,CONFIG::$username,CONFIG::$pass,CONFIG::$db_name);
-    if(mysqli_connect_errno()){
-			echo mysqli_connect_error();
-			exit(0);
-		}
-    return $con;
+  public static function Conexion() {
+      if (!isset(ConexionMySQL::$conexion)) {
+          ConexionMySQL::$conexion = (mysqli_connect(ConexionMySQL::$servername, ConexionMySQL::$user, ConexionMySQL::$password, ConexionMySQL::$database))
+                  or die(mysqli_error());
+      }
+
+      return ConexionMySQL::$conexion;
   }
 
-public static function GET_SQL($sql){
-  $response;
-  $conn = CONFIG::GET_CONNECTION();
-  $query = mysqli_query($conn,$sql);
-  $responseArray = array();
+  public static function EjecutarConsulta($consulta) {
+      $resultado = mysqli_query(ConexionMySQL::$conexion, $consulta);
+      return $resultado;
+  }
 
-  if ($query) {
-    $responseArray = array();
-			while ($fila = mysqli_fetch_assoc($query)) {
-				$responseArray[] = array_map('utf8_encode', $fila);
-			}
-			$response = json_encode($responseArray, JSON_NUMERIC_CHECK);
-  }else{
-			$response = null;
-			echo mysqli_error($conn);
-		}
+  public static function ObtenerDatos($consulta) {
+      return mysqli_fetch_array($consulta);
+  }
 
-		mysqli_close($conn);
-		return $response;
-}
+  public static function ObtenerNumeroRegistros($consulta) {
+      return mysqli_num_rows($consulta);
+  }
 
-public static function PUT_SQL($sql){
-      $response;
-		  $conn = CONFIG::GET_CONNECTION();
-		  $query = mysqli_query($conn,$sql);
 
-		if ($query) {
-			$array = true;
-			$response = json_encode($array, JSON_NUMERIC_CHECK);
-		}else{
-			$array = false;
-			$response = json_encode($array, JSON_NUMERIC_CHECK);
-			echo mysqli_error($conn);
-		}
-		mysqli_close($conn);
-		return $response;
-}
 
 }
 
